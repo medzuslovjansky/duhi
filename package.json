@@ -1,0 +1,26 @@
+{
+  "name": "@interslavic/spirits",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo for Interslavic spirits (bots for Discord, etc.)",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=25.0.0"
+  },
+  "scripts": {
+    "build": "yarn workspaces foreach -R run build",
+    "dev": "yarn workspaces foreach -R run dev",
+    "lint": "yarn workspaces foreach -R run lint",
+    "test": "yarn workspaces foreach -R run test",
+    "clean": "yarn workspaces foreach -R run clean"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "yarn@4.10.3",
+  "license": "MIT"
+}

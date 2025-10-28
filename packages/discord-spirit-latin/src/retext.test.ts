@@ -1,0 +1,42 @@
+import { test, describe } from 'node:test';
+import assert from 'node:assert';
+import { transliterateWithUrlPreservation } from './retext.ts';
+
+describe('transliterateWithUrlPreservation', () => {
+  test('should transliterate text with URL and return changed=true', async (t) => {
+    const input = "Поздрав, погледајте новину: https://news.rs/articles/српски-језик - заисто зајмливо";
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'Pozdrav, pogledajte novinu: https://news.rs/articles/српски-језик - zaisto zajmlivo');
+  });
+
+  test('should transliterate text with file path and return changed=true', async (t) => {
+    const input = "Файл readme.md съдржи инструкции.";
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'Fajl readme.md sodrži instrukcii.');
+  });
+
+  test('should not change pure Latin text and return changed=false', async (t) => {
+    const input = "Hello world! Visit https://example.com for more info.";
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, input);
+  });
+
+  test('should not change balanced Latin/Cyrillic text and return changed=false', async (t) => {
+    const input = `
+Поздрав, latinica ниже:
+
+Мы имајемо за вас добру новину:
+
+https://news.rs/articles/српски-језик
+
+My imajemo za vas dobru novinu:
+
+https://news.rs/articles/српски-језик`
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, input);
+  });
+});
