@@ -1,15 +1,11 @@
-import utils from '@interslavic/utils';
+import { transliterate as translit } from '@interslavic/translit';
 
 import { isCyrillic, isGlagolitic } from './detect-script.ts';
 
 export function transliterate(value: string, simplify = false): string {
-  if (isGlagolitic(value)) {
-    value = utils.transliterate2.glag2latn(value);
+  if (!simplify && !isCyrillic(value) && !isGlagolitic(value)) {
+    return value; // the engine would otherwise respell plain Latin ("world" -> "vorld")
   }
 
-  if (isCyrillic(value) || simplify) {
-    value = utils.transliterate(value, simplify ? 'isv-Latn-x-sloviant' : 'isv-Latn');
-  }
-
-  return value;
+  return translit(value, simplify ? 'isv-Latn-x-sloviant' : 'isv-Latn');
 }
