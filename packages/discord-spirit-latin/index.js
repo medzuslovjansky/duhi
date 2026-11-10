@@ -13,15 +13,12 @@ import retextSyntaxUrls from "retext-syntax-urls";
 import retextStringify from "retext-stringify";
 
 // src/transliterate.ts
-import utils from "@interslavic/utils";
+import { transliterate as translit } from "@interslavic/translit";
 function transliterate(value, simplify = false) {
-  if (isGlagolitic(value)) {
-    value = utils.transliterate2.glag2latn(value);
+  if (!simplify && !isCyrillic(value) && !isGlagolitic(value)) {
+    return value;
   }
-  if (isCyrillic(value) || simplify) {
-    value = utils.transliterate(value, simplify ? "isv-Latn-x-sloviant" : "isv-Latn");
-  }
-  return value;
+  return translit(value, simplify ? "isv-Latn-x-sloviant" : "isv-Latn");
 }
 
 // src/detect-script.ts
