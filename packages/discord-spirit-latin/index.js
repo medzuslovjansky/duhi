@@ -123,6 +123,15 @@ async function transliterateWithUrlPreservation(text) {
   return String(result);
 }
 
+// src/revision.ts
+var LABEL = "Verzija: ";
+function withRevision(description, sha) {
+  const rest = description.split("\n").filter((line) => !line.startsWith(LABEL)).join("\n").trimEnd();
+  return `${rest}
+
+${LABEL}https://github.com/medzuslovjansky/duhi/commit/${sha}`.trimStart();
+}
+
 // src/store.ts
 import { DatabaseSync } from "node:sqlite";
 
@@ -314,9 +323,23 @@ client.on("interactionCreate", async (interaction) => {
     }
   }
 });
-client.once("clientReady", async () => {
-  console.log(`Listening as: ${client.user?.tag}`);
+async function publishRevision(application) {
+  const sha = process.env.GIT_SHA;
+  if (!sha) return;
+  try {
+    const { description } = await application.fetch();
+    const updated = withRevision(description ?? "", sha);
+    if (updated !== description) {
+      await application.edit({ description: updated });
+    }
+  } catch (error) {
+    console.error("Error publishing revision:", error);
+  }
+}
+client.once("clientReady", async (readyClient) => {
+  console.log(`Listening as: ${readyClient.user.tag}`);
   await registerCommands();
+  await publishRevision(readyClient.application);
 });
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;

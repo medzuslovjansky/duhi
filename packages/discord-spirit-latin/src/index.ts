@@ -3,6 +3,7 @@ import { join } from 'path';
 import * as DiscordJs from 'discord.js';
 import { MessageFlags } from 'discord-api-types/v10';
 import { transliterateWithUrlPreservation } from './retext.ts';
+import { withRevision } from './revision.ts';
 import { Store } from './store.ts';
 
 const {
@@ -138,9 +139,26 @@ client.on('interactionCreate', async (interaction: DiscordJs.Interaction) => {
   }
 });
 
-client.once('clientReady', async () => {
-  console.log(`Listening as: ${client.user?.tag}`);
+// Show in the bot's profile which commit is running (the Docker image carries it as GIT_SHA)
+async function publishRevision(application: DiscordJs.ClientApplication) {
+  const sha = process.env.GIT_SHA;
+  if (!sha) return;
+
+  try {
+    const { description } = await application.fetch();
+    const updated = withRevision(description ?? '', sha);
+    if (updated !== description) {
+      await application.edit({ description: updated });
+    }
+  } catch (error) {
+    console.error('Error publishing revision:', error);
+  }
+}
+
+client.once('clientReady', async (readyClient) => {
+  console.log(`Listening as: ${readyClient.user.tag}`);
   await registerCommands();
+  await publishRevision(readyClient.application);
 });
 
 client.on('messageCreate', async (message: DiscordJs.Message) => {
