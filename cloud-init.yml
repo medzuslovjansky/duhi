@@ -1,0 +1,32 @@
+#cloud-config
+# The whole server: Docker, and a `deploy` user for GitHub Actions to log in as.
+# Give this file as "Cloud config" when creating an Ubuntu server at Hetzner,
+# with the public half of the deploy key in place of DEPLOY_PUBLIC_KEY (see README.md).
+# Nothing else is installed by hand: .github/workflows/deploy.yml starts what compose.yml lists.
+
+package_update: true
+package_upgrade: true
+packages:
+  - docker.io
+  - unattended-upgrades
+
+users:
+  - default
+  - name: deploy
+    groups: docker
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - DEPLOY_PUBLIC_KEY
+
+ssh_pwauth: false
+
+write_files:
+  # The default log driver grows without limit; this one rotates
+  - path: /etc/docker/daemon.json
+    content: |
+      {"log-driver": "local"}
+  # Reboot when a security update needs it; the bots start again by themselves
+  - path: /etc/apt/apt.conf.d/52unattended-upgrades-reboot
+    content: |
+      Unattended-Upgrade::Automatic-Reboot "true";
+      Unattended-Upgrade::Automatic-Reboot-Time "04:00";

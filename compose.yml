@@ -1,0 +1,17 @@
+# What runs on the server: one container per bot, all from the same image.
+# .github/workflows/deploy.yml applies this file on every push to main.
+name: duhi
+
+services:
+  latin:
+    image: ${IMAGE:?}
+    command: node /app/packages/discord-spirit-latin/index.js
+    environment:
+      DISCORD_TOKEN: ${LATIN_DISCORD_TOKEN:?}
+      DISCORD_APPLICATION_ID: ${LATIN_DISCORD_APPLICATION_ID:?}
+    volumes:
+      - latin:/data
+    restart: unless-stopped
+
+volumes:
+  latin:

@@ -1,0 +1,9 @@
+.git
+**/node_modules
+.yarn/*
+!.yarn/plugins
+!.yarn/releases
+
+# Secrets and bot state never go into the (public) image
+**/.env
+**/state.db

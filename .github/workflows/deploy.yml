@@ -1,0 +1,92 @@
+# Whatever is on main is what runs on the server:
+# commit → image (type checks and tests run inside the build) → GHCR, attested to the commit
+# → the server runs that exact digest → the bot shows the commit in its Discord profile.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    env:
+      REPOSITORY: ghcr.io/${{ github.repository }}
+    outputs:
+      digest: ${{ steps.push.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build the image (fails unless type checks and tests pass)
+        run: docker build --provenance=false --build-arg GIT_SHA="$GITHUB_SHA" --tag "$REPOSITORY:$GITHUB_SHA" .
+
+      - name: Push it to the registry
+        id: push
+        if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin <<< "$GITHUB_TOKEN"
+          docker push "$REPOSITORY:$GITHUB_SHA"
+          echo "digest=$(docker buildx imagetools inspect "$REPOSITORY:$GITHUB_SHA" --format '{{.Manifest.Digest}}')" >> "$GITHUB_OUTPUT"
+
+      - name: Attest that this digest was built here from this commit
+        if: github.event_name == 'push'
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ${{ env.REPOSITORY }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+
+  deploy:
+    needs: image
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+    env:
+      # Docker and Compose run here and talk to the server's Docker over SSH
+      DOCKER_HOST: ssh://deploy@${{ secrets.DEPLOY_HOST }}
+      IMAGE: ghcr.io/${{ github.repository }}@${{ needs.image.outputs.digest }}
+      LATIN_DISCORD_TOKEN: ${{ secrets.LATIN_DISCORD_TOKEN }}
+      LATIN_DISCORD_APPLICATION_ID: ${{ vars.LATIN_DISCORD_APPLICATION_ID }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up SSH access to the server
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Run this image on the server
+        run: |
+          docker compose up --detach --remove-orphans
+          docker image prune --all --force
+
+      - name: Wait until the bot shows this commit in its Discord profile
+        timeout-minutes: 2
+        run: |
+          until curl -fsS -H "Authorization: Bot $LATIN_DISCORD_TOKEN" https://discord.com/api/v10/applications/@me | grep -q "$GITHUB_SHA"; do sleep 5; done
+
+      - name: Report what the server runs
+        if: always()
+        run: |
+          {
+            echo "Commit: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+            echo '```'
+            docker compose ps --all
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
