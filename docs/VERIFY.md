@@ -6,6 +6,8 @@ Two separate questions: **whose bot is this**, and **what code does it run**.
 
 Every Discord bot has a user ID assigned by Discord, and no other bot can have the same one.
 The official IDs are in the [table of bots](../README.md#bots).
+To see a bot's ID in Discord: Settings → Advanced → Developer Mode, then right-click the bot → Copy User ID.
+The buttons in that table always add the official bot.
 Check the ID first: the code is public, so a copy of a bot can show the same commit as the official one.
 
 ## What code it runs
