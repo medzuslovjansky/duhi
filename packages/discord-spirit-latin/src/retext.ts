@@ -3,13 +3,9 @@ import retextEnglish from 'retext-english';
 import retextSyntaxUrls from 'retext-syntax-urls';
 import retextStringify from 'retext-stringify';
 import type { Node, Parent } from 'unist';
-import type { Text, Source } from 'nlcst';
+import type { Source } from 'nlcst';
 import { hasLatinOrBalancedNonLatinScript } from './detect-script.ts';
 import { transliterate } from './transliterate.ts';
-
-function isText(node: Node): node is Text {
-  return node.type === 'TextNode';
-}
 
 function isSourceNode(node: Node): node is Source {
   return node.type === 'SourceNode';
@@ -17,23 +13,6 @@ function isSourceNode(node: Node): node is Source {
 
 function isParent(node: Node): node is Parent {
   return Array.isArray((node as Parent).children);
-}
-
-/**
- * Custom retext plugin that transliterates text nodes with non-balanced Latin script while preserving URLs
- */
-function retextTransliterate() {
-  function visit(node: Node) {
-    if (isText(node)) {
-      node.value = transliterate(node.value);
-    }
-
-    if (isParent(node)) {
-      node.children.forEach(visit);
-    }
-  }
-
-  return (tree: Node) => visit(tree);
 }
 
 function retextRemoveNonTextNodes() {
@@ -56,11 +35,20 @@ const purifier = unified()
   .use(retextRemoveNonTextNodes)
   .use(retextStringify); // Convert back to string
 
-const transliterator = unified()
+const urlFinder = unified()
   .use(retextEnglish) // Parse text into a syntax tree
-  .use(retextSyntaxUrls) // Classify URLs as syntax to preserve them
-  .use(retextTransliterate)
-  .use(retextStringify); // Convert back to string
+  .use(retextSyntaxUrls); // Classify URLs as syntax to preserve them
+
+/** Where the URLs are in the text, as [start, end) offsets. */
+function urlRanges(node: Node, ranges: Array<[number, number]> = []): Array<[number, number]> {
+  if (isSourceNode(node) && node.position) {
+    ranges.push([node.position.start.offset!, node.position.end.offset!]);
+  } else if (isParent(node)) {
+    node.children.forEach((child) => urlRanges(child, ranges));
+  }
+
+  return ranges;
+}
 
 /**
  * Transliterates text with non-balanced Latin script to Latin script while preserving URLs
@@ -73,6 +61,22 @@ export async function transliterateWithUrlPreservation(text: string): Promise<st
     return text;
   }
 
-  const result = await transliterator.process(text);
-  return String(result);
+  // Latin words stay as they are (the engine would respell "world" as "vorld");
+  // the rest goes to the engine in runs, because punctuation needs its neighbours:
+  // in Glagolitic, `;` after a word is the question mark
+  const convert = (part: string) =>
+    part
+      .split(/(\p{Script=Latin}+)/u)
+      .map((run, i) => (i % 2 ? run : transliterate(run)))
+      .join('');
+
+  const tree = await urlFinder.run(urlFinder.parse(text));
+  let result = '';
+  let from = 0;
+  for (const [start, end] of urlRanges(tree)) {
+    result += convert(text.slice(from, start)) + text.slice(start, end);
+    from = end;
+  }
+
+  return result + convert(text.slice(from));
 }
