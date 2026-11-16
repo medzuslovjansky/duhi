@@ -32,4 +32,4 @@ gh attestation verify oci://ghcr.io/medzuslovjansky/duhi@sha256:... --repo medzu
 
 The bots run on [Hetzner Cloud](https://www.hetzner.com/cloud). Access to the server is kept in 1Password
 ([Teams for Open Source](https://github.com/medzuslovjansky/1password-teams-open-source))
-and held by several members of the Interslavic Language Commission.
+and held by several members of the [Committee of the Interslavic Language](https://interslavicforum.org/about-interslavic/).
