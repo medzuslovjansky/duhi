@@ -78,25 +78,11 @@ function hasLatinOrBalancedNonLatinScript(text) {
 }
 
 // src/retext.ts
-function isText(node) {
-  return node.type === "TextNode";
-}
 function isSourceNode(node) {
   return node.type === "SourceNode";
 }
 function isParent(node) {
   return Array.isArray(node.children);
-}
-function retextTransliterate() {
-  function visit(node) {
-    if (isText(node)) {
-      node.value = transliterate(node.value);
-    }
-    if (isParent(node)) {
-      node.children.forEach(visit);
-    }
-  }
-  return (tree) => visit(tree);
 }
 function retextRemoveNonTextNodes() {
   function visit(node) {
@@ -110,14 +96,29 @@ function retextRemoveNonTextNodes() {
   return (tree) => visit(tree);
 }
 var purifier = unified().use(retextEnglish).use(retextSyntaxUrls).use(retextRemoveNonTextNodes).use(retextStringify);
-var transliterator = unified().use(retextEnglish).use(retextSyntaxUrls).use(retextTransliterate).use(retextStringify);
+var urlFinder = unified().use(retextEnglish).use(retextSyntaxUrls);
+function urlRanges(node, ranges = []) {
+  if (isSourceNode(node) && node.position) {
+    ranges.push([node.position.start.offset, node.position.end.offset]);
+  } else if (isParent(node)) {
+    node.children.forEach((child) => urlRanges(child, ranges));
+  }
+  return ranges;
+}
 async function transliterateWithUrlPreservation(text) {
   const pure = await purifier.process(text);
   if (hasLatinOrBalancedNonLatinScript(String(pure))) {
     return text;
   }
-  const result = await transliterator.process(text);
-  return String(result);
+  const convert = (part) => part.split(/(\p{Script=Latin}+)/u).map((run, i) => i % 2 ? run : transliterate(run)).join("");
+  const tree = await urlFinder.run(urlFinder.parse(text));
+  let result = "";
+  let from = 0;
+  for (const [start2, end] of urlRanges(tree)) {
+    result += convert(text.slice(from, start2)) + text.slice(start2, end);
+    from = end;
+  }
+  return result + convert(text.slice(from));
 }
 
 // src/revision.ts

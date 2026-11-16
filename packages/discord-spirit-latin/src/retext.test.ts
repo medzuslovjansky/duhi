@@ -39,4 +39,26 @@ https://news.rs/articles/српски-језик`
 
     assert.strictEqual(result, input);
   });
+
+  test('should turn `;` after a Glagolitic word into a question mark', async () => {
+    // As typed in Discord, followed by a space and an emoji
+    const input = 'Ⱅⱃⱑⰱⰰ ⰾⰻ ⱀⰰⰿ ⱅⱆ Ⰴⱆⱈ Ⰳⰾⰰⰳⱁⰾⰻⱌⰵ; 🤔';
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'Trěba li nam tu Duh Glagolice? 🤔');
+  });
+
+  test('should convert Glagolitic punctuation next to a URL', async () => {
+    const input = 'Ⰽⱅⱁ ⰿⱁⰶⰵ ⱂⱃⱁⰲⱑⱃⰻⱅⰻ; https://example.com/a;b Ⰴⱁⰱⱃⱁ։';
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'Kto može prověriti? https://example.com/a;b Dobro.');
+  });
+
+  test('should leave Latin words inside Cyrillic text as they are', async () => {
+    const input = 'Привет world, как дела?';
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'Privet world, kak dela?');
+  });
 });
