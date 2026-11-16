@@ -28,6 +28,8 @@ To check for yourself:
 gh attestation verify oci://ghcr.io/medzuslovjansky/duhi@sha256:... --repo medzuslovjansky/duhi
 ```
 
-## What this cannot show
+## Where it runs
 
-All of this shows what the workflow deployed. It cannot show what an administrator with SSH access to the server did by hand afterwards.
+The bots run on [Hetzner Cloud](https://www.hetzner.com/cloud). Access to the server is kept in 1Password
+([Teams for Open Source](https://github.com/medzuslovjansky/1password-teams-open-source))
+and held by several members of the Interslavic Language Commission.
