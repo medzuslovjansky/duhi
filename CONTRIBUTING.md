@@ -23,5 +23,5 @@ yarn dev
 
 1. A package under `packages/`, with `env.example` and tests.
 2. Like the existing bots, it answers a bare mention with its commit and writes that commit into its Discord profile, so it can be [verified](docs/VERIFY.md).
-3. A service for it in [compose.yml](compose.yml) with its own prefix, and its secrets in `production` ([docs/OPERATIONS.md](docs/OPERATIONS.md)).
+3. A service for it in [compose.yml](compose.yml) with its own prefix, its secrets in `production` ([docs/OPERATIONS.md](docs/OPERATIONS.md)), and the same prefix in the [deploy workflow](.github/workflows/deploy.yml): its `env` and the step that reads the commit back from Discord.
 4. A row in the README [table of bots](README.md#bots) and, if it has commands, a `###` section under Commands.
