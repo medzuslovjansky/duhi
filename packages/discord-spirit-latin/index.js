@@ -124,12 +124,12 @@ async function transliterateWithUrlPreservation(text) {
 }
 
 // src/revision.ts
-var LABEL = "Verzija: ";
+var COMMITS = "https://github.com/medzuslovjansky/duhi/commit/";
 function withRevision(description, sha) {
-  const rest = description.split("\n").filter((line) => !line.startsWith(LABEL)).join("\n").trimEnd();
+  const rest = description.split("\n").filter((line) => !line.includes(COMMITS)).join("\n").trimEnd();
   return `${rest}
 
-${LABEL}https://github.com/medzuslovjansky/duhi/commit/${sha}`.trimStart();
+Versija: ${COMMITS}${sha}`.trimStart();
 }
 
 // src/store.ts
