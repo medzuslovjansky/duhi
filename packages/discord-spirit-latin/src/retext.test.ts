@@ -61,4 +61,11 @@ https://news.rs/articles/српски-језик`
 
     assert.strictEqual(result, 'Privet world, kak dela?');
   });
+
+  test('should read Glagolitic numerals, marked by titlo or by dots, also next to a URL', async () => {
+    const input = 'ⰻ ⱍⰻⱄⰾⰰ ⱅⱁⰶ⸬ ⱍ҃ⱄ҃ⰼ҃ⰳ҃ ⰻ ·ⰸⰺ· ⰽⱀⰻⰳ· https://example.com/a·b ⱅⰰⰽ ·ⰽⰰⰽⱁ·';
+    const result = await transliterateWithUrlPreservation(input);
+
+    assert.strictEqual(result, 'i čisla tož: 1234 i 19 knig, https://example.com/a·b tak ,kako,');
+  });
 });

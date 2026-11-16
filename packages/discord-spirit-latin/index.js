@@ -18,7 +18,7 @@ function transliterate(value, simplify = false) {
   if (!simplify && !isCyrillic(value) && !isGlagolitic(value)) {
     return value;
   }
-  return translit(value, simplify ? "isv-Latn-x-sloviant" : "isv-Latn");
+  return translit(value, simplify ? "isv-Latn-x-sloviant" : "isv-Latn", { glagoliticNumerals: true });
 }
 
 // src/detect-script.ts
@@ -128,6 +128,16 @@ function withRevision(description, sha) {
   return `${rest}
 
 Versija: ${COMMITS}${sha}`.trimStart();
+}
+function revisionEmbed(sha, commitTime, runUrl) {
+  return {
+    title: "Duh Latinice",
+    fields: [
+      { name: "Versija", value: sha ? `[${sha.slice(0, 7)}](${COMMITS}${sha})` : "lokalna", inline: true },
+      ...commitTime ? [{ name: "Data", value: `<t:${commitTime}:f> (<t:${commitTime}:R>)`, inline: true }] : [],
+      ...runUrl ? [{ name: "Sostavjenje", value: `[GitHub Actions](${runUrl})`, inline: true }] : []
+    ]
+  };
 }
 
 // src/store.ts
@@ -342,6 +352,10 @@ client.once("clientReady", async (readyClient) => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (!message.guild) return;
+  if (/^<@!?(\d+)>$/.exec(message.content.trim())?.[1] === client.user?.id) {
+    await message.reply({ embeds: [revisionEmbed(process.env.GIT_SHA, process.env.GIT_COMMIT_TIME, process.env.CI_RUN_URL)] }).catch(console.error);
+    return;
+  }
   const serverId = message.guild.id;
   const channelId = message.channelId;
   try {

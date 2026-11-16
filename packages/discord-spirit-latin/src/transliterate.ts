@@ -7,5 +7,5 @@ export function transliterate(value: string, simplify = false): string {
     return value; // the engine would otherwise respell plain Latin ("world" -> "vorld")
   }
 
-  return translit(value, simplify ? 'isv-Latn-x-sloviant' : 'isv-Latn');
+  return translit(value, simplify ? 'isv-Latn-x-sloviant' : 'isv-Latn', { glagoliticNumerals: true });
 }
