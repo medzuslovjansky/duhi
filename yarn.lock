@@ -296,7 +296,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@interslavic/discord-spirit-latin@workspace:packages/discord-spirit-latin"
   dependencies:
-    "@interslavic/translit": "npm:^0.1.0"
+    "@interslavic/translit": "npm:^0.2.0"
     "@types/unist": "npm:^3.0.3"
     discord.js: "npm:^14.27.0"
     dotenv: "npm:^18.0.9"
@@ -320,10 +320,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@interslavic/translit@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@interslavic/translit@npm:0.1.0"
-  checksum: 10c0/3c598747e576dffbfd0ae930560e903d3388040cd85eda3eaf68e63387b7d1084b8b95f3ce00cc337c24482f6509a270e6a52ade8e9268958323b4ee36ec0b16
+"@interslavic/translit@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@interslavic/translit@npm:0.2.0"
+  checksum: 10c0/0aef1e174d2e8e805596e500c53f49e542ade4c8dd70d408061923b189e837b0dd8b42057c681d0c89b0d5c03daaf15ee6d9622f693913fe9429548c471ef402
   languageName: node
   linkType: hard
 
