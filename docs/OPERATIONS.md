@@ -6,13 +6,24 @@ For the people who hold access to the server. Deployment itself is automatic, se
 
 They live in the GitHub environment `production`, which only the workflow on `main` can read.
 
+### Shared
+
 | Name | What it allows |
 | --- | --- |
 | `DEPLOY_HOST`, `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS` | Logging in to the server as `deploy`, who can run any container there |
-| `LATIN_DISCORD_TOKEN` | Acting as the `discord-spirit-latin` bot on Discord |
-| `LATIN_DISCORD_APPLICATION_ID` | Nothing, it is public (a variable, not a secret) |
 
-On the server the `LATIN_` prefix is dropped: [compose.yml](../compose.yml) passes them to the bot as `DISCORD_TOKEN` and `DISCORD_APPLICATION_ID`. The prefix keeps the secrets of several bots apart.
+### Per bot
+
+Each bot has a prefix; [compose.yml](../compose.yml) drops it and passes the values to that bot's container as `DISCORD_TOKEN` and `DISCORD_APPLICATION_ID`.
+
+| Bot | Prefix |
+| --- | --- |
+| discord-spirit-latin | `LATIN_` |
+
+| Name | What it allows |
+| --- | --- |
+| `<PREFIX>DISCORD_TOKEN` | Acting as that bot on Discord |
+| `<PREFIX>DISCORD_APPLICATION_ID` | Nothing, it is public (a variable, not a secret) |
 
 ## Setting up a server
 
@@ -26,9 +37,14 @@ Done once. After that, deploying needs no login to the server.
 gh secret set DEPLOY_SSH_KEY --env production < duhi-deploy
 gh secret set DEPLOY_HOST --env production --body "$SERVER_ADDRESS"
 ssh-keyscan -t ed25519 "$SERVER_ADDRESS" | gh secret set DEPLOY_KNOWN_HOSTS --env production
-gh secret set LATIN_DISCORD_TOKEN --env production
-gh variable set LATIN_DISCORD_APPLICATION_ID --env production --body "$APPLICATION_ID"
 rm duhi-deploy duhi-deploy.pub
 ```
 
-4. The server pulls the image without credentials, so the `duhi` package on GHCR must be public. If the first deploy fails to pull it, make the package public in its settings and re-run the deploy job.
+4. For each bot, set its token and application ID (here for `LATIN_`):
+
+```bash
+gh secret set LATIN_DISCORD_TOKEN --env production
+gh variable set LATIN_DISCORD_APPLICATION_ID --env production --body "$APPLICATION_ID"
+```
+
+5. The server pulls the image without credentials, so the `duhi` package on GHCR must be public. If the first deploy fails to pull it, make the package public in its settings and re-run the deploy job.

@@ -14,11 +14,14 @@ A local run needs your own Discord application, not the production one:
 create it at <https://discord.com/developers/applications>, add it to a test server, then
 
 ```bash
-cd packages/discord-spirit-latin
+cd packages/<bot>
 cp env.example .env   # fill in DISCORD_TOKEN and DISCORD_APPLICATION_ID
 yarn dev
 ```
 
 ## Adding a bot
 
-Add a package under `packages/` and a service for it in [compose.yml](compose.yml); its secrets go to the `production` environment as described in [docs/OPERATIONS.md](docs/OPERATIONS.md).
+1. A package under `packages/`, with `env.example` and tests.
+2. Like the existing bots, it answers a bare mention with its commit and writes that commit into its Discord profile, so it can be [verified](docs/VERIFY.md).
+3. A service for it in [compose.yml](compose.yml) with its own prefix, and its secrets in `production` ([docs/OPERATIONS.md](docs/OPERATIONS.md)).
+4. A row in the README [table of bots](README.md#bots) and, if it has commands, a `###` section under Commands.

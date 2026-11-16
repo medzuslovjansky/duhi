@@ -6,27 +6,33 @@ Interslavic bots for Discord.
 [![production](https://img.shields.io/github/deployments/medzuslovjansky/duhi/production?label=production)](https://github.com/medzuslovjansky/duhi/deployments/production)
 [![attestations](https://img.shields.io/badge/build-attested-2ea44f?logo=github)](https://github.com/medzuslovjansky/duhi/attestations)
 
-## discord-spirit-latin
+## Bots
 
-When someone writes in Cyrillic or Glagolitic, the bot replies with the same text in Latin letters.
+| Bot | What it does | Official user ID | Install |
+| --- | --- | --- | --- |
+| [discord-spirit-latin](#discord-spirit-latin) | Replies to Cyrillic and Glagolitic messages with the same text in Latin letters | `1430518339821895750` | [![Add to Discord](https://img.shields.io/badge/Add_to_Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1430518339821895750&scope=bot+applications.commands&permissions=84992) |
 
-[![Add to Discord](https://img.shields.io/badge/Add_to_Discord-5865F2?logo=discord&logoColor=white&style=for-the-badge)](https://discord.com/oauth2/authorize?client_id=1430518339821895750&scope=bot+applications.commands&permissions=84992)
-
-The bot stays silent until you turn it on in a channel. These commands need the Manage Channels permission:
-
-- `/enable` turns it on in the current channel
-- `/disable` turns it off
-- `/status` tells whether it is on
-
-**Is this the official bot?** Its user ID is `1430518339821895750`
+**Is this the official bot?** Compare its user ID with the table
 (in Discord: Settings → Advanced → Developer Mode, then right-click the bot → Copy User ID).
-The "Add to Discord" button above always installs this one.
-Mention the bot with no other text to see which commit it runs. [Full verification →](docs/VERIFY.md)
+The Install buttons always add the official bot.
+Mention a bot with no other text to see which commit it runs. [Full verification →](docs/VERIFY.md)
 
 Problems and ideas: [open an issue](https://github.com/medzuslovjansky/duhi/issues).
 
+## Commands
+
+### discord-spirit-latin
+
+Silent until turned on in a channel. All commands need the Manage Channels permission.
+
+| Command | Effect |
+| --- | --- |
+| `/enable` | Turns the bot on in the current channel |
+| `/disable` | Turns it off |
+| `/status` | Tells whether it is on |
+
 ## More
 
-- [Contributing](CONTRIBUTING.md): run and test the bots locally
+- [Contributing](CONTRIBUTING.md): run and test the bots locally, add a bot
 - [Verification](docs/VERIFY.md): how to check what runs on the server
 - [Operations](docs/OPERATIONS.md): server, secrets, deployment setup
