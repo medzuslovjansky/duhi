@@ -3,7 +3,7 @@ import { join } from 'path';
 import * as DiscordJs from 'discord.js';
 import { MessageFlags } from 'discord-api-types/v10';
 import { transliterateWithUrlPreservation } from './retext.ts';
-import { withRevision } from './revision.ts';
+import { revisionEmbed, withRevision } from './revision.ts';
 import { Store } from './store.ts';
 
 const {
@@ -164,6 +164,12 @@ client.once('clientReady', async (readyClient) => {
 client.on('messageCreate', async (message: DiscordJs.Message) => {
   if (message.author.bot) return;
   if (!message.guild) return; // Only work in servers
+
+  // A bare ping, in any channel, answers with the running version
+  if (/^<@!?(\d+)>$/.exec(message.content.trim())?.[1] === client.user?.id) {
+    await message.reply({ embeds: [revisionEmbed(process.env.GIT_SHA, process.env.GIT_COMMIT_TIME, process.env.CI_RUN_URL)] }).catch(console.error);
+    return;
+  }
 
   const serverId = message.guild.id;
   const channelId = message.channelId;

@@ -17,8 +17,11 @@ RUN install -d -o node -g node /data
 WORKDIR /data
 USER node
 
-# The commit this image was built from. Each bot publishes it in its Discord profile.
+# The commit this image was built from (and its time, Unix seconds), and the CI run that built and deployed it.
+# Each bot publishes the commit in its Discord profile.
 ARG GIT_SHA
-ENV GIT_SHA=$GIT_SHA
+ARG GIT_COMMIT_TIME
+ARG CI_RUN_URL
+ENV GIT_SHA=$GIT_SHA GIT_COMMIT_TIME=$GIT_COMMIT_TIME CI_RUN_URL=$CI_RUN_URL
 LABEL org.opencontainers.image.source=https://github.com/medzuslovjansky/duhi
 LABEL org.opencontainers.image.revision=$GIT_SHA
