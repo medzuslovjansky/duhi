@@ -10,7 +10,7 @@ Interslavic bots for Discord.
 
 | Bot | What it does | Official user ID |
 | --- | --- | --- |
-| [![discord-spirit-latin: Add to Discord](https://img.shields.io/badge/discord--spirit--latin-Add_to_Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1430518339821895750&scope=bot+applications.commands&permissions=84992) | Replies to Cyrillic and Glagolitic messages with the same text in Latin letters. [Commands](#discord-spirit-latin) | `1430518339821895750` |
+| [![Add discord-spirit-latin to Discord](https://img.shields.io/badge/discord--spirit--latin-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1430518339821895750&scope=bot+applications.commands&permissions=84992) | Replies to Cyrillic and Glagolitic messages with the same text in Latin letters. [Commands](#discord-spirit-latin) | `1430518339821895750` |
 
 **Is this the official bot?** Compare its user ID with the table
 (in Discord: Settings → Advanced → Developer Mode, then right-click the bot → Copy User ID).
