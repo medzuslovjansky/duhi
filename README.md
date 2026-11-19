@@ -8,11 +8,11 @@ Interslavic bots for Discord.
 
 ## Bots
 
-| Bot | What it does | Official user ID |
+| Bot | What it does | User ID |
 | --- | --- | --- |
 | [![Add discord-spirit-latin to Discord](https://img.shields.io/badge/discord--spirit--latin-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1430518339821895750&scope=bot+applications.commands&permissions=84992) | Replies to Cyrillic and Glagolitic messages with the same text in Latin letters. [Commands](#discord-spirit-latin) | `1430518339821895750` |
 
-These are the official Interslavic bots, run by the [Committee of the Interslavic Language](https://interslavicforum.org/about-interslavic/).
+These bots are used on the [official Interslavic Discord server](https://discord.com/invite/n3saqm27QW).
 Add them with the buttons in the table. [How to verify a bot →](docs/VERIFY.md)
 
 Problems and ideas: [open an issue](https://github.com/medzuslovjansky/duhi/issues).
