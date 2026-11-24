@@ -19,6 +19,7 @@ Each bot has a prefix; [compose.yml](../compose.yml) drops it and passes the val
 | Bot | Prefix |
 | --- | --- |
 | discord-spirit-latin | `LATIN_` |
+| discord-spirit-slovo | `SLOVO_` |
 
 | Name | What it allows |
 | --- | --- |

@@ -23,7 +23,7 @@ All bots are built and deployed together: whatever is on `main` is what runs on 
 To check for yourself:
 
 - The **Deployments** block of this repository shows which commit is in `production`.
-- A bot's profile in Discord ("About Me") links to the same commit. Mentioning the bot with no other text answers with the same commit.
+- A bot's profile in Discord ("About Me") links to the same commit. discord-spirit-latin also answers a bare mention with it.
 - The summary of the workflow run shows the image digest the server runs. This command confirms where that image came from:
 
 ```bash

@@ -1,0 +1,293 @@
+exports[`messages 1`] = `
+{
+  "results вода": {
+    "embeds": [
+      {
+        "title": "voda",
+        "url": "https://interslavic-dictionary.com/?text=id2537&lang=isv-ru",
+        "description": "*существительное, женский род*\\n\`bg\` вода\\n\`ru\` вода\\n\`en\` water\\n\`be\` вада\\n\`uk\` вода\\n\`pl\` woda\\n\`cs\` voda\\n\`sk\` voda\\n\`sl\` *voda*\\n\`hr\` voda\\n\`sr\` вода\\n\`mk\` вода"
+      },
+      {
+        "title": "provodnik",
+        "url": "https://interslavic-dictionary.com/?text=id22256&lang=isv-ru",
+        "description": "*существительное, мужской род, одуш.*\\n\`bg\` водач\\n\`ru\` проводник, гид, путеводитель\\n\`en\` guide\\n\`be\` правадыр, гід, даведнік\\n\`uk\` провідник, гід, путівник\\n\`pl\` przewodnik\\n\`cs\` průvodce\\n\`sk\` sprievodca\\n\`sl\` vodič\\n\`hr\` vodič\\n\`sr\` водич\\n\`mk\` водач"
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 3,
+            "custom_id": "slovo:word",
+            "options": [
+              {
+                "label": "voda (существительное, женский род)",
+                "value": "voda|NOUN"
+              },
+              {
+                "label": "provodnik (существительное, мужской род, одуш.)",
+                "value": "provodnik (1)|NOUN"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share::вода",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "results spasti": {
+    "embeds": [
+      {
+        "title": "spasti",
+        "url": "https://interslavic-dictionary.com/?text=id5660&lang=isv-ru",
+        "description": "*глагол, совершенного вида*\\n\`ru\` спасть, упасть\\n\`en\` fall down\\n\`be\` спасці, сысці, адлегчы, зваліцца, упасці, паваліцца\\n\`uk\` спасти, впасти\\n\`pl\` spaść\\n\`cs\` spadnout\\n\`sk\` spadnúť\\n\`sl\` *pasti*\\n\`hr\` pasti\\n\`sr\` пасти\\n\`mk\` падна, опадна\\n\`bg\` падна"
+      },
+      {
+        "title": "spasti",
+        "url": "https://interslavic-dictionary.com/?text=id21150&lang=isv-ru",
+        "description": "*глагол, совершенного вида*\\n\`ru\` спасти\\n\`en\` save, rescue\\n\`be\` выратаваць, уратаваць, паратаваць, адратаваць\\n\`uk\` врятувати\\n\`pl\` ocalić, wybawić\\n\`cs\` zachránit, spasit\\n\`sk\` zachrániť, spasiť\\n\`sl\` *rešiti*\\n\`hr\` spasiti\\n\`sr\` спасти\\n\`mk\` спаси, зачува\\n\`bg\` спася"
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 3,
+            "custom_id": "slovo:word",
+            "options": [
+              {
+                "label": "spasti (глагол, совершенного вида)",
+                "value": "spasti (1)|VERB"
+              },
+              {
+                "label": "spasti (глагол, совершенного вида)",
+                "value": "spasti (2)|VERB"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share::spasti",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "results xqzw": {
+    "content": "**Ничего не найдено**\\nПопробуйте найти другое слово.",
+    "embeds": [],
+    "components": [],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "word kamenj|NOUN": {
+    "embeds": [
+      {
+        "title": "kamenj — rzeczownik, rodzaj męski",
+        "url": "https://interslavic-dictionary.com/?text=id1313&lang=isv-pl",
+        "description": "[1.](https://interslavic-dictionary.com/?text=id1313&lang=isv-pl) \`en\` stone · \`pl\` kamień",
+        "fields": [
+          {
+            "name": "liczba pojedyncza",
+            "value": "\`\`\`\\nMian.  kamenj/kamen*\\nBier.  kamenj/kamen*\\nDop.   kamenja/kamene*\\nMiej.  kamenju/kameni*\\nCel.   kamenju/kameni*\\nNarz.  kamenjem/kamenem*\\nWoł.   kamenju/kamen*\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "liczba mnoga",
+            "value": "\`\`\`\\nMian.  kamenje/kameni*\\nBier.  kamenje/kameni*\\nDop.   kamenjev/kamenev*\\nMiej.  kamenjah/kamenah*\\nCel.   kamenjam/kamenam*\\nNarz.  kamenjami/kamenami*\\nWoł.   kamenje/kameni*\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "​",
+            "value": "\\\\* variant",
+            "inline": false
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share-word:kamenj|NOUN",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "word pisati|VERB": {
+    "embeds": [
+      {
+        "title": "pisati (piše) — czasownik, niedokonany",
+        "url": "https://interslavic-dictionary.com/?text=id141&lang=isv-pl",
+        "description": "[1.](https://interslavic-dictionary.com/?text=id141&lang=isv-pl) \`en\` write · \`pl\` pisać",
+        "fields": [
+          {
+            "name": "bezokolicznik",
+            "value": "\`\`\`\\npisati\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "teraźniejszy",
+            "value": "\`\`\`\\nja   pišu/pišem*\\nty   pišeš\\non   piše\\nmy   pišemo\\nvy   pišete\\noni  pišut\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "przeszły",
+            "value": "\`\`\`\\nrodzaj męski   pisal\\nrodzaj żeński  pisala\\nrodzaj nijaki  pisalo\\nliczba mnoga   pisali\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "tryb rozkazujący",
+            "value": "\`\`\`\\nty  piši\\nmy  pišimo\\nvy  pišite\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "​",
+            "value": "\\\\* variant",
+            "inline": false
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share-word:pisati|VERB",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "word dobry|ADJ": {
+    "embeds": [
+      {
+        "title": "dobry — przymiotnik",
+        "url": "https://interslavic-dictionary.com/?text=id1144&lang=isv-pl",
+        "description": "[1.](https://interslavic-dictionary.com/?text=id1144&lang=isv-pl) \`en\` good · \`pl\` dobry",
+        "fields": [
+          {
+            "name": "rodzaj męski",
+            "value": "\`\`\`\\nMian.  dobry\\nBier.  dobrogo/dobry\\nDop.   dobrogo\\nMiej.  dobrom\\nCel.   dobromu\\nNarz.  dobrym\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "rodzaj nijaki",
+            "value": "\`\`\`\\nMian.  dobro\\nBier.  dobro\\nDop.   dobrogo\\nMiej.  dobrom\\nCel.   dobromu\\nNarz.  dobrym\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "rodzaj żeński",
+            "value": "\`\`\`\\nMian.  dobra\\nBier.  dobru\\nDop.   dobroj\\nMiej.  dobroj\\nCel.   dobroj\\nNarz.  dobroju\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "liczba mnoga",
+            "value": "\`\`\`\\nMian.  dobri/dobre\\nBier.  dobryh/dobre\\nDop.   dobryh\\nMiej.  dobryh\\nCel.   dobrym\\nNarz.  dobrymi\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "kratka forma",
+            "value": "\`\`\`\\ndobr\\n\`\`\`",
+            "inline": false
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share-word:dobry|ADJ",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  },
+  "word on|PRON": {
+    "embeds": [
+      {
+        "title": "on (jego, jemu, njim) — zaimek",
+        "url": "https://interslavic-dictionary.com/?text=id2150&lang=isv-pl",
+        "description": "[1.](https://interslavic-dictionary.com/?text=id2150&lang=isv-pl) \`en\` he · \`pl\` on",
+        "fields": [
+          {
+            "name": "rodzaj męski",
+            "value": "\`\`\`\\nMian.  on\\nBier.  jego/njego/go*\\nDop.   jego/njego\\nMiej.  njem\\nCel.   jemu/njemu/mu*\\nNarz.  jim/njim\\n\`\`\`",
+            "inline": false
+          },
+          {
+            "name": "​",
+            "value": "\\\\* variant",
+            "inline": false
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "custom_id": "slovo:share-word:on|PRON",
+            "label": "Pokaži vsim"
+          }
+        ]
+      }
+    ],
+    "allowed_mentions": {
+      "parse": []
+    }
+  }
+}
+`;

@@ -1,0 +1,141 @@
+exports[`suggestions 1`] = `
+{
+  "vod": [
+    "voda",
+    "voden",
+    "vodič (elek.)",
+    "vodič",
+    "vodit",
+    "vodiť",
+    "vodní",
+    "vodny",
+    "vodný",
+    "voditi"
+  ],
+  "во": [
+    "вода",
+    "воск",
+    "ворон",
+    "водный",
+    "водяной",
+    "воевать",
+    "военный",
+    "возврат",
+    "волынка",
+    "ворожить",
+    "восклицать",
+    "возвращение",
+    "восклицательный",
+    "восстановление сил"
+  ],
+  "в": [
+    "воз",
+    "врз",
+    "Вуг",
+    "віз",
+    "він",
+    "вада",
+    "виде",
+    "види",
+    "видя",
+    "виме",
+    "вода",
+    "води",
+    "водя",
+    "вока",
+    "вони",
+    "воск",
+    "вымя",
+    "віск",
+    "вести",
+    "весці",
+    "взрив",
+    "взрыв",
+    "вибух",
+    "вим'я",
+    "вираз"
+  ]
+}
+`;
+
+exports[`what each query finds 1`] = `
+{
+  "вода": [
+    "steen:2537 voda [bg:вода:exact mk:вода:exact ru:вода:exact sr:вода:exact uk:вода:exact isv:voda:stem]",
+    "steen:22256 provodnik [bg:водач:prefix mk:водач:prefix]"
+  ],
+  "voda": [
+    "steen:2537 voda [cs:voda:exact hr:voda:exact isv:voda:exact sk:voda:exact sl:voda:exact]"
+  ],
+  "vodu (isv)": [
+    "steen:2537 voda [isv:voda:form]"
+  ],
+  "vody": [
+    "steen:2537 voda [isv:voda:form]"
+  ],
+  "water (en)": [
+    "steen:2537 voda [en:water:exact]",
+    "steen:36769 vodny [en:water:exact]",
+    "steen:32703 pojiti [en:water:exact]"
+  ],
+  "ključ": [
+    "steen:2240 ključ [hr:ključ:exact isv:ključ:exact sl:ključ:exact]",
+    "steen:788 kljuvati [hr:kljucati:prefix]"
+  ],
+  "spasti": [
+    "steen:5660 spasti [isv:spasti:exact]",
+    "steen:21150 spasti [isv:spasti:exact]"
+  ],
+  "kamen": [
+    "steen:1313 kamenj [cs:kámen:exact hr:kamen:exact sk:kameň:exact sl:kamen:exact isv:kamenj:form]"
+  ],
+  "камень": [
+    "steen:1313 kamenj [be:камень:exact ru:камень:exact isv:kamenj:stem]"
+  ],
+  "pisal": [
+    "steen:141 pisati [isv:pisati:form]"
+  ],
+  "dobrogo": [
+    "steen:1144 dobry [isv:dobry:form]",
+    "steen:2491 dobro [isv:dobro:stem]",
+    "steen:17268 dobro [isv:dobro:stem]"
+  ],
+  "bojati": [
+    "steen:2465 bojati se [hr:bojati se:prefix isv:bojati se:prefix]"
+  ],
+  "muzka": [
+    "steen:198 muzika [cs:muzika:fuzzy hr:muzika:fuzzy isv:muzika:fuzzy pl:muzyka:fuzzy]",
+    "steen:27858 muška [cs:muška (živ.):fuzzy isv:muška:fuzzy sk:muška (živ.):fuzzy pl:muszka (fauna):fuzzy]"
+  ],
+  "Вода": [
+    "steen:2537 voda [bg:вода:exact mk:вода:exact ru:вода:exact sr:вода:exact uk:вода:exact isv:voda:stem]",
+    "steen:22256 provodnik [bg:водач:prefix mk:водач:prefix]"
+  ],
+  "vod": [
+    "steen:2537 voda [isv:voda:form cs:voda:prefix hr:voda:prefix sk:voda:prefix sl:voda:prefix]",
+    "steen:2536 voditi [cs:vodit:prefix sk:vodiť:prefix hr:voditi:prefix isv:voditi:prefix sl:voditi:prefix]",
+    "steen:36769 vodny [hr:voden:prefix sl:voden:prefix cs:vodní:prefix isv:vodny:prefix sk:vodný:prefix]",
+    "steen:22258 provodnik [cs:vodič (elek.):prefix hr:vodič:prefix sk:vodič (elek.):prefix]",
+    "steen:22256 provodnik [hr:vodič:prefix sl:vodič:prefix]"
+  ],
+  "xqzw": [],
+  "ⰲⱁⰴⰰ": [
+    "steen:2537 voda [isv:voda:stem]"
+  ]
+}
+`;
+
+exports[`word card data 1`] = `
+{
+  "lemma": {
+    "key": "kamenj|NOUN",
+    "isv": "kamenj",
+    "upos": "NOUN",
+    "xpos": "m.",
+    "addition": ""
+  },
+  "senses": [
+    "steen:1313 kamenj []"
+  ]
+}
+`;

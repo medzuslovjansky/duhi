@@ -13,5 +13,13 @@ services:
       - latin:/data
     restart: unless-stopped
 
+  slovo:
+    image: ${IMAGE:?}
+    command: node /app/packages/discord-spirit-slovo/index.js
+    environment:
+      DISCORD_TOKEN: ${SLOVO_DISCORD_TOKEN:?}
+      DISCORD_APPLICATION_ID: ${SLOVO_DISCORD_APPLICATION_ID:?}
+    restart: unless-stopped
+
 volumes:
   latin:
