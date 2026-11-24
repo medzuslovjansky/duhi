@@ -1,4 +1,4 @@
-import { label, UNREVIEWED, type LabelKey } from './labels.ts';
+import { label, type LabelKey } from './labels.ts';
 import { ENDONYMS, LANGS, type Lang } from './lang.ts';
 
 /** Discord locales (discord.com/developers/docs/reference#locales) the site has labels for. */
@@ -31,5 +31,4 @@ export const COMMANDS = [
       },
     ],
   },
-  { type: 3, name: UNREVIEWED.lookUp, ...SCOPE },
 ];

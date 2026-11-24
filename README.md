@@ -37,7 +37,6 @@ Replies are visible only to the person who asked; a button posts the reply to th
 | Command | Effect |
 | --- | --- |
 | `/gledaj tekst:<word> [jezyk:<language>]` | Finds the word in the dictionary, in any language or in the one given. Suggestions appear while typing. |
-| *Gledaj v slovniku* (Apps menu of a message) | Looks up the message's text; a single Interslavic word opens its card at once |
 
 Picking a word under the results opens its card: every meaning and the table of forms.
 

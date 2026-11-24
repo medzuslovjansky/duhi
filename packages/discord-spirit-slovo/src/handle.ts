@@ -6,7 +6,6 @@ import type { Search } from './search.types.ts';
 export type BotEvent =
   | { kind: 'command'; query: string; lang?: string; locale?: string }
   | { kind: 'autocomplete'; prefix: string; lang?: string }
-  | { kind: 'message-command'; text: string; locale?: string }
   | { kind: 'select'; customId: string; values: string[]; locale?: string }
   | { kind: 'button'; customId: string; locale?: string };
 
@@ -33,17 +32,6 @@ export async function handle(event: BotEvent, search: Search): Promise<Reaction>
     case 'command': {
       const found = await search.find(event.query, lang(event.lang));
       return privately(resultsPayload(found, { query: event.query, lang: lang(event.lang), reader }));
-    }
-
-    case 'message-command': {
-      // the longest query the command itself accepts (max_length of tekst)
-      const query = event.text.trim().slice(0, 100);
-      const found = await search.find(query);
-      // One Interslavic word with one lemma: straight to its card
-      const lemmas = new Set(found.flatMap((r) => r.lemmas.map((l) => l.key)));
-      const isv = found.length > 0 && found.every((r) => r.matched.some((m) => m.lang === 'isv'));
-      const card = isv && lemmas.size === 1 ? await search.word([...lemmas][0]) : undefined;
-      return privately(card ? wordPayload(card, reader) : resultsPayload(found, { query, reader }));
     }
 
     case 'select': {

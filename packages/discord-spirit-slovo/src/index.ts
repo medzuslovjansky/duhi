@@ -24,7 +24,6 @@ function eventOf(interaction: DiscordJs.Interaction): BotEvent | undefined {
   if (interaction.isChatInputCommand() && interaction.commandName === 'gledaj') {
     return { kind: 'command', query: interaction.options.getString('tekst', true), lang: interaction.options.getString('jezyk') ?? undefined, locale };
   }
-  if (interaction.isMessageContextMenuCommand()) return { kind: 'message-command', text: interaction.targetMessage.content, locale };
   if (interaction.isStringSelectMenu()) return { kind: 'select', customId: interaction.customId, values: interaction.values, locale };
   if (interaction.isButton()) return { kind: 'button', customId: interaction.customId, locale };
   return undefined;
