@@ -5,6 +5,7 @@ Interslavic bots for Discord.
 [![Deploy](https://github.com/medzuslovjansky/duhi/actions/workflows/deploy.yml/badge.svg)](https://github.com/medzuslovjansky/duhi/actions/workflows/deploy.yml)
 [![production](https://img.shields.io/github/deployments/medzuslovjansky/duhi/production?label=production)](https://github.com/medzuslovjansky/duhi/deployments/production)
 [![attestations](https://img.shields.io/badge/build-attested-2ea44f?logo=github)](https://github.com/medzuslovjansky/duhi/attestations)
+[![hosting](https://img.shields.io/badge/hosting-Hetzner%20cx23%20%C2%B7%20Nuremberg-D50C2D?logo=hetzner&logoColor=white)](docs/OPERATIONS.md)
 
 ## Bots
 
