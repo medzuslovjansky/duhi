@@ -16,8 +16,9 @@ export function label(key: LabelKey, lang?: Lang): string {
 
 /** Labels the dictionary site lacks: the bot's own wording, pending review. */
 export const UNREVIEWED = {
-  /** Footnote for forms marked with an asterisk. */
-  variant: 'variant',
+  /** Footnotes for the kinds of variant forms (Variant=Athematic, Short, Long), the owner's wording. */
+  athematic: 'atematična forma',
+  long: 'dolga forma',
   /** Title of an adjective's short form (dobr); from kråtky + forma in the dictionary. */
   shortForm: 'kratka forma',
   /** Button that posts an answer to the channel, in every client language. */

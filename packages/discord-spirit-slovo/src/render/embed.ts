@@ -1,7 +1,7 @@
 import { label, partOfSpeech, UNREVIEWED } from '../labels.ts';
 import { LANGS, standard, type Lang } from '../lang.ts';
 import type { Lemma, Result, WordCard } from '../search.types.ts';
-import { formTables, tableText } from './forms.ts';
+import { formTables, tableText, VARIANTS, type Marks } from './forms.ts';
 
 /** Discord message limits (discord.com/developers/docs/resources/message). */
 export const LIMITS = {
@@ -146,15 +146,17 @@ export function wordPayload(card: WordCard, reader?: Lang, shared = false): Payl
     .join('\n');
   const addition = card.lemma.addition ? ` ${standard(card.lemma.addition)}` : '';
 
-  const tables = formTables(card.paradigm, card.lemma.upos, reader);
+  const used: Marks = new Map();
+  const tables = formTables(card.paradigm, card.lemma.upos, reader, used);
   const fields = tables.slice(0, LIMITS.fields).map((table) => ({
     name: cut(table.title, LIMITS.fieldName),
     value: cut('```\n' + tableText(table) + '\n```', LIMITS.fieldValue),
     // Not inline: three inline fields are too narrow for a code block, and forms wrap.
     inline: false,
   }));
-  if (tables.some((t) => t.rows.some((row) => row.some((c) => c.includes('*'))))) {
-    fields.push({ name: '​', value: `\\* ${UNREVIEWED.variant}`, inline: false });
+  if (used.size) {
+    const notes = [...used].map(([variant, mark]) => `${mark.replace(/\*/g, '\\*')} ${VARIANTS[variant]}`);
+    fields.push({ name: '​', value: notes.join('\n'), inline: false });
   }
 
   const share = shared ? undefined : shareButton(`slovo:share-word:${card.lemma.key}`);

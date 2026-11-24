@@ -35,17 +35,41 @@ const PERSONS: [string, string, string][] = [
 const feats = (token: Token) => (token.feats ?? {}) as Feats;
 const fits = (token: Token, when: Feats) => Object.entries(when).every(([k, v]) => feats(token)[k] === v);
 
-/** Forms of one cell. Variants (`Variant=Athematic`, `Long`, `Short`) follow the plain forms with an asterisk. */
-function cell(tokens: Token[], when: Feats): string {
-  const plain: string[] = [];
-  const variant: string[] = [];
+/** Kinds of variant forms (CoNLL-U `Variant`) and the footnote that explains each. */
+export const VARIANTS = {
+  Athematic: UNREVIEWED.athematic,
+  Short: UNREVIEWED.shortForm,
+  Long: UNREVIEWED.long,
+} as const;
+export type Variant = keyof typeof VARIANTS;
+
+/** Marks given out in reading order: the first kind met in a card gets *, the next **. */
+export type Marks = Map<Variant, string>;
+const markOf = (marks: Marks, variant: Variant) => {
+  if (!marks.has(variant)) marks.set(variant, '*'.repeat(marks.size + 1));
+  return marks.get(variant)!;
+};
+
+/**
+ * Forms of one cell: plain forms first, then variants with their mark.
+ * A long and a short form side by side (osuđaješ/osuđaš) are equal alternatives and stay unmarked.
+ */
+function cell(tokens: Token[], when: Feats, used: Marks): string {
+  const forms: { form: string; variant?: Variant }[] = [];
   for (const token of tokens) {
     if (!fits(token, when)) continue;
     const form = standard(token.form);
-    const list = feats(token).Variant ? variant : plain;
-    if (!plain.includes(form) && !variant.includes(form)) list.push(form);
+    const variant = feats(token).Variant as Variant | undefined;
+    if (!forms.some((f) => f.form === form)) forms.push({ form, variant: variant && variant in VARIANTS ? variant : undefined });
   }
-  return [...plain, ...variant.map((form) => `${form}*`)].join('/') || '—';
+  const pair = forms.some((f) => f.variant === 'Long') && forms.some((f) => f.variant === 'Short');
+  const marked = (f: (typeof forms)[number]) => f.variant && !(pair && (f.variant === 'Long' || f.variant === 'Short'));
+  const ordered = [...forms.filter((f) => !marked(f)), ...forms.filter(marked)];
+  return (
+    ordered
+      .map((f) => (marked(f) ? f.form + markOf(used, f.variant!) : f.form))
+      .join('/') || '—'
+  );
 }
 
 /**
@@ -53,28 +77,28 @@ function cell(tokens: Token[], when: Feats): string {
  * Discord shows them side by side on a computer and one under another on a phone,
  * where a single wide table would wrap.
  */
-function caseTables(tokens: Token[], columns: Column[], lang?: Lang): FormTable[] {
+function caseTables(tokens: Token[], columns: Column[], used: Marks, lang?: Lang): FormTable[] {
   const cases = CASES.filter(([c]) => tokens.some((t) => feats(t).Case === c));
   return columns
     .filter((column) => tokens.some((t) => fits(t, column.when)))
     .map((column) => ({
       title: label(column.key, lang),
       header: [],
-      rows: cases.map(([c, key]) => [label(key, lang), cell(tokens, { ...column.when, Case: c })]),
+      rows: cases.map(([c, key]) => [label(key, lang), cell(tokens, { ...column.when, Case: c }, used)]),
     }));
 }
 
 /** Word-card tables: declension for nominal words, conjugation for verbs. */
-export function formTables(tokens: Token[], upos: string, lang?: Lang): FormTable[] {
+export function formTables(tokens: Token[], upos: string, lang?: Lang, used: Marks = new Map()): FormTable[] {
   if (tokens.length === 0) return [];
 
   if (upos === 'VERB' || upos === 'AUX') {
     const tables: FormTable[] = [];
-    const infinitive = cell(tokens, { VerbForm: 'Inf' });
+    const infinitive = cell(tokens, { VerbForm: 'Inf' }, used);
     if (infinitive !== '—') tables.push({ title: label('infinitive', lang), header: [], rows: [[infinitive]] });
     const present = PERSONS.map(([Person, Number, who]) => [
       who,
-      cell(tokens, { VerbForm: 'Fin', Mood: 'Ind', Tense: 'Pres', Person, Number }),
+      cell(tokens, { VerbForm: 'Fin', Mood: 'Ind', Tense: 'Pres', Person, Number }, used),
     ]);
     if (present.some(([, form]) => form !== '—')) tables.push({ title: label('present', lang), header: [], rows: present });
     const past = (
@@ -84,10 +108,10 @@ export function formTables(tokens: Token[], upos: string, lang?: Lang): FormTabl
         ['neuter', { Gender: 'Neut', Number: 'Sing' }],
         ['plural', { Number: 'Plur' }],
       ] as [LabelKey, Feats][]
-    ).map(([key, when]) => [label(key, lang), cell(tokens, { VerbForm: 'Part', Tense: 'Past', Voice: 'Act', ...when })]);
+    ).map(([key, when]) => [label(key, lang), cell(tokens, { VerbForm: 'Part', Tense: 'Past', Voice: 'Act', ...when }, used)]);
     if (past.some(([, form]) => form !== '—')) tables.push({ title: label('past', lang), header: [], rows: past });
     const imperative = PERSONS.filter(([p, n]) => (p === '2' && n === 'Sing') || (p !== '3' && n === 'Plur')).map(
-      ([Person, Number, who]) => [who, cell(tokens, { Mood: 'Imp', Person, Number })],
+      ([Person, Number, who]) => [who, cell(tokens, { Mood: 'Imp', Person, Number }, used)],
     );
     if (imperative.some(([, form]) => form !== '—'))
       tables.push({ title: label('imperative', lang), header: [], rows: imperative });
@@ -109,7 +133,7 @@ export function formTables(tokens: Token[], upos: string, lang?: Lang): FormTabl
   // adjectives: the positive degree; the short form (dobr) goes under the tables, not into a cell
   const positive = tokens.filter((t) => !feats(t).Degree || feats(t).Degree === 'Pos');
   const short = upos === 'ADJ' ? positive.filter((t) => feats(t).Variant === 'Short') : [];
-  const tables = caseTables(positive.filter((t) => !short.includes(t)), columns, lang);
+  const tables = caseTables(positive.filter((t) => !short.includes(t)), columns, used, lang);
   if (short.length) {
     tables.push({ title: UNREVIEWED.shortForm, header: [], rows: [[[...new Set(short.map((t) => standard(t.form)))].join(', ')]] });
   }
