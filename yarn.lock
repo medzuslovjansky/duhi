@@ -275,6 +275,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@interslavic/conllu@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@interslavic/conllu@npm:0.1.1"
+  checksum: 10c0/0e7e379770ec4aed96409bfdf62c9276b5be586adce9b0de18b058c2fb5676723b97ce663d1f9cb4df7999d91ed67bc935461e623be36bbc656852f054d45b79
+  languageName: node
+  linkType: hard
+
 "@interslavic/discord-spirit-latin@workspace:packages/discord-spirit-latin":
   version: 0.0.0-use.local
   resolution: "@interslavic/discord-spirit-latin@workspace:packages/discord-spirit-latin"
@@ -293,6 +300,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@interslavic/discord-spirit-slovo@workspace:packages/discord-spirit-slovo":
+  version: 0.0.0-use.local
+  resolution: "@interslavic/discord-spirit-slovo@workspace:packages/discord-spirit-slovo"
+  dependencies:
+    "@interslavic/conllu": "npm:^0.1.1"
+    "@interslavic/morphology": "npm:^0.1.3"
+    "@interslavic/stemmer": "npm:^0.1.1"
+    "@interslavic/translit": "npm:^0.2.1"
+    "@playwright/test": "npm:^1.60.0"
+    "@skyra/discord-components-core": "npm:^4.0.2"
+    discord.js: "npm:^14.27.0"
+    dotenv: "npm:^18.0.9"
+  languageName: unknown
+  linkType: soft
+
+"@interslavic/morphology@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@interslavic/morphology@npm:0.1.3"
+  dependencies:
+    "@interslavic/conllu": "npm:^0.1.1"
+    "@interslavic/translit": "npm:^0.2.0"
+  checksum: 10c0/6fcc84c9ee665a5bb705c026db7194fd5461dbcc9b5d1d675731723469f0bf31c0825216f0703aa242aced8fe238bb6bee116fa5ea99a7b50978713871ef6ed3
+  languageName: node
+  linkType: hard
+
 "@interslavic/spirits@workspace:.":
   version: 0.0.0-use.local
   resolution: "@interslavic/spirits@workspace:."
@@ -303,10 +335,55 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@interslavic/translit@npm:^0.2.1":
+"@interslavic/stemmer@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@interslavic/stemmer@npm:0.1.1"
+  dependencies:
+    "@interslavic/translit": "npm:^0.2.0"
+  checksum: 10c0/875fa41e9171dfe5511f3cb552a627014113a13e2d6127ed1309bc690659e237f0ca5bed1941c2011c8946a362a91fb458579d747348a5d99cdfea9e6889b32f
+  languageName: node
+  linkType: hard
+
+"@interslavic/translit@npm:^0.2.0, @interslavic/translit@npm:^0.2.1":
   version: 0.2.1
   resolution: "@interslavic/translit@npm:0.2.1"
   checksum: 10c0/91e7bd465001fb78e05a2b5f7c38ec220df63cc671056f4857336eacff49052402df0009f4c89c6870d5886f412c23c610a86ac42eb717e170b4917c5605ef6c
+  languageName: node
+  linkType: hard
+
+"@lit-labs/ssr-dom-shim@npm:^1.5.0":
+  version: 1.6.0
+  resolution: "@lit-labs/ssr-dom-shim@npm:1.6.0"
+  checksum: 10c0/deffcfd765d268820beef600a1c1cf9d3cf1a5cb4bbe7e80843796ff33d1a122f4e5651ef4a44b33d36e5fa6538e6ee87a95b9d40b4a26cabf3c35b45194c87a
+  languageName: node
+  linkType: hard
+
+"@lit/context@npm:^1.1.5":
+  version: 1.1.6
+  resolution: "@lit/context@npm:1.1.6"
+  dependencies:
+    "@lit/reactive-element": "npm:^1.6.2 || ^2.1.0"
+  checksum: 10c0/203f761eda19c8b37d77f01d9a0148535c5b28c47b76e28b321cb6e5ed0546c45332512e68b1647ce92ca67690d8c66de31972ec115410b080d69fa25a5d86f3
+  languageName: node
+  linkType: hard
+
+"@lit/reactive-element@npm:^1.6.2 || ^2.1.0, @lit/reactive-element@npm:^2.1.0":
+  version: 2.1.2
+  resolution: "@lit/reactive-element@npm:2.1.2"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": "npm:^1.5.0"
+  checksum: 10c0/557069ce6ebbbafb1140e1e0a25ce73d3501bf455cda231d42bb131baa9065c54b6b7ca1655507eede397decd7ddde16c84192cb72a07d4edf41d54e07725933
+  languageName: node
+  linkType: hard
+
+"@playwright/test@npm:^1.60.0":
+  version: 1.65.0
+  resolution: "@playwright/test@npm:1.65.0"
+  dependencies:
+    playwright: "npm:1.65.0"
+  bin:
+    playwright: cli.js
+  checksum: 10c0/137a641e1be8035686a165e69d86d242ee7ed5cbe71e5230f9195cb6e65be37a66ba697f16919b508d04c4d682fd4e167d1a755b64ceb545afac780de72b594b
   languageName: node
   linkType: hard
 
@@ -334,6 +411,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@skyra/discord-components-core@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@skyra/discord-components-core@npm:4.0.2"
+  dependencies:
+    "@lit/context": "npm:^1.1.5"
+    lit: "npm:^3.3.0"
+  checksum: 10c0/6b07708474390e5f5a4e3e3151fccfcc90ac7c45ba20a73c715437fc9a07e39b42191de55006d94f3749a388949a325644c51733eaab6a8c03954b68d2082aed
+  languageName: node
+  linkType: hard
+
 "@types/nlcst@npm:^2.0.0":
   version: 2.0.3
   resolution: "@types/nlcst@npm:2.0.3"
@@ -358,6 +445,13 @@ __metadata:
   dependencies:
     undici-types: "npm:~8.9.0"
   checksum: 10c0/4f791f69466ace7842c09e7bef96cb1ddbb65cf3db916ef7e84f0e2b2a17220b6b816dc7539d01520cadfb17ed7169b8214910900493e0a83be8bc7d124ec20a
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:^2.0.2":
+  version: 2.0.7
+  resolution: "@types/trusted-types@npm:2.0.7"
+  checksum: 10c0/4c4855f10de7c6c135e0d32ce462419d8abbbc33713b31d294596c0cc34ae1fa6112a2f9da729c8f7a20707782b0d69da3b1f8df6645b0366d08825ca1522e0c
   languageName: node
   linkType: hard
 
@@ -708,6 +802,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lit-element@npm:^4.2.0":
+  version: 4.2.2
+  resolution: "lit-element@npm:4.2.2"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": "npm:^1.5.0"
+    "@lit/reactive-element": "npm:^2.1.0"
+    lit-html: "npm:^3.3.0"
+  checksum: 10c0/114ab5837f1f9e03a30b1ed1c055fa0e31f01e444464e5ab0453ef88be12d778508235533267c42614d323e3048ee58f865b5c612948a53bd6219abca404c710
+  languageName: node
+  linkType: hard
+
+"lit-html@npm:^3.3.0":
+  version: 3.3.3
+  resolution: "lit-html@npm:3.3.3"
+  dependencies:
+    "@types/trusted-types": "npm:^2.0.2"
+  checksum: 10c0/84e57314412ff385cc67fc482d26b77057370e2cfe3c6495cc45f692bdad840d5ed0519ddddcfae1d043bb098c66daa7e807593d5a21ac72094da14274497879
+  languageName: node
+  linkType: hard
+
+"lit@npm:^3.3.0":
+  version: 3.3.3
+  resolution: "lit@npm:3.3.3"
+  dependencies:
+    "@lit/reactive-element": "npm:^2.1.0"
+    lit-element: "npm:^4.2.0"
+    lit-html: "npm:^3.3.0"
+  checksum: 10c0/11b6175ebffce92f4cf835ddd8a198d49707c27f34b0a7c538d2cb294f6c2fb7ff40aabd3589fcf0c2ed162404faaf2bb7c966fad9024bb9e02d013e2d5aa0b5
+  languageName: node
+  linkType: hard
+
 "lodash.snakecase@npm:4.1.1":
   version: 4.1.1
   resolution: "lodash.snakecase@npm:4.1.1"
@@ -762,6 +887,26 @@ __metadata:
     unist-util-visit-children: "npm:^3.0.0"
     vfile: "npm:^6.0.0"
   checksum: 10c0/4232a464f98c41c6680575c54bc2c9b21ac4b82a1f796a871bfef5efa6eddaab9bccf734b08cde6b0a5504ef46a0a14041ddd0bc5d9cc70f73a507f93f610596
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.65.0":
+  version: 1.65.0
+  resolution: "playwright-core@npm:1.65.0"
+  bin:
+    playwright-core: cli.js
+  checksum: 10c0/ed905c6fc2457a725c3fdb3ad4500f43c7a1bb2c6e4e8c708e1e314930c7dce446a5756ad073425bf3c6e3ca975e5a35fb0221118e2d51ef7b4b6c6d13d0644c
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.65.0":
+  version: 1.65.0
+  resolution: "playwright@npm:1.65.0"
+  dependencies:
+    playwright-core: "npm:1.65.0"
+  bin:
+    playwright: cli.js
+  checksum: 10c0/a7d71f3ca5bcad0531b5f3c39ae1a9be0da8e74be6fee8510d99b9f5fc07fd5b3d889aa4ca487c70ca29aba8625f74e3c2c7473b4c8a784dc14fefff80474ac3
   languageName: node
   linkType: hard
 

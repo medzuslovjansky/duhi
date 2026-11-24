@@ -1,0 +1,125 @@
+exports[`command definitions 1`] = `
+[
+  {
+    "type": 1,
+    "name": "gledaj",
+    "description": "Slovnik medžuslovjanskogo jezyka",
+    "description_localizations": {
+      "en-US": "Dictionary of the Interslavic language",
+      "en-GB": "Dictionary of the Interslavic language",
+      "ru": "Словарь межславянского языка",
+      "uk": "Словник міжслов'янської мови",
+      "pl": "Słownik języka międzysłowiańskiego",
+      "cs": "Slovník mezislovanského jazyka",
+      "hr": "Rječnik međuslavenskoga jezika",
+      "bg": "Речник на междуславянския език"
+    },
+    "integration_types": [
+      0
+    ],
+    "contexts": [
+      0
+    ],
+    "options": [
+      {
+        "type": 3,
+        "name": "tekst",
+        "description": "Vpišite slovo",
+        "description_localizations": {
+          "en-US": "Type word here",
+          "en-GB": "Type word here",
+          "ru": "Введите слово",
+          "uk": "Введіть слово",
+          "pl": "Tu wpisz słowo",
+          "cs": "Zadej slovo",
+          "hr": "Unesi riječ ovdje",
+          "bg": "Въведи дума"
+        },
+        "required": true,
+        "autocomplete": true,
+        "max_length": 100
+      },
+      {
+        "type": 3,
+        "name": "jezyk",
+        "description": "Jezyk",
+        "description_localizations": {
+          "en-US": "Language",
+          "en-GB": "Language",
+          "ru": "Язык",
+          "uk": "Мова",
+          "pl": "Język",
+          "cs": "Jazyk",
+          "hr": "Jezik",
+          "bg": "Език"
+        },
+        "required": false,
+        "choices": [
+          {
+            "name": "isv · Medžuslovjansky",
+            "value": "isv"
+          },
+          {
+            "name": "en · English",
+            "value": "en"
+          },
+          {
+            "name": "ru · Русский",
+            "value": "ru"
+          },
+          {
+            "name": "be · Беларуская",
+            "value": "be"
+          },
+          {
+            "name": "uk · Українська",
+            "value": "uk"
+          },
+          {
+            "name": "pl · Polski",
+            "value": "pl"
+          },
+          {
+            "name": "cs · Čeština",
+            "value": "cs"
+          },
+          {
+            "name": "sk · Slovenčina",
+            "value": "sk"
+          },
+          {
+            "name": "sl · Slovenščina",
+            "value": "sl"
+          },
+          {
+            "name": "hr · Hrvatski",
+            "value": "hr"
+          },
+          {
+            "name": "sr · Српски",
+            "value": "sr"
+          },
+          {
+            "name": "mk · Македонски",
+            "value": "mk"
+          },
+          {
+            "name": "bg · Български",
+            "value": "bg"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": 3,
+    "name": "Gledaj v slovniku",
+    "integration_types": [
+      0
+    ],
+    "contexts": [
+      0
+    ]
+  }
+]
+`;

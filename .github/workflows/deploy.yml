@@ -58,6 +58,8 @@ jobs:
       IMAGE: ghcr.io/${{ github.repository }}@${{ needs.image.outputs.digest }}
       LATIN_DISCORD_TOKEN: ${{ secrets.LATIN_DISCORD_TOKEN }}
       LATIN_DISCORD_APPLICATION_ID: ${{ vars.LATIN_DISCORD_APPLICATION_ID }}
+      SLOVO_DISCORD_TOKEN: ${{ secrets.SLOVO_DISCORD_TOKEN }}
+      SLOVO_DISCORD_APPLICATION_ID: ${{ vars.SLOVO_DISCORD_APPLICATION_ID }}
     steps:
       - uses: actions/checkout@v7
 
@@ -71,15 +73,20 @@ jobs:
           printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
+      - name: Register discord-spirit-slovo commands
+        run: docker run --rm -e DISCORD_TOKEN="$SLOVO_DISCORD_TOKEN" -e DISCORD_APPLICATION_ID="$SLOVO_DISCORD_APPLICATION_ID" "$IMAGE" node /app/packages/discord-spirit-slovo/src/register.ts
+
       - name: Run this image on the server
         run: |
           docker compose up --detach --remove-orphans
           docker image prune --all --force
 
-      - name: Wait until the bot shows this commit in its Discord profile
+      - name: Wait until every bot shows this commit in its Discord profile
         timeout-minutes: 2
         run: |
-          until curl -fsS -H "Authorization: Bot $LATIN_DISCORD_TOKEN" https://discord.com/api/v10/applications/@me | grep -q "$GITHUB_SHA"; do sleep 5; done
+          for token in "$LATIN_DISCORD_TOKEN" "$SLOVO_DISCORD_TOKEN"; do
+            until curl -fsS -H "Authorization: Bot $token" https://discord.com/api/v10/applications/@me | grep -q "$GITHUB_SHA"; do sleep 5; done
+          done
 
       - name: Report what the server runs
         if: always()

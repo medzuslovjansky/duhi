@@ -1,0 +1,35 @@
+{
+  "name": "@interslavic/discord-spirit-slovo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Discord bot that looks words up in the Interslavic dictionary",
+  "type": "module",
+  "scripts": {
+    "build": "yarn run -T tsc --noEmit && node esbuild.config.js && node scripts/fetch-words.ts && node src/build-db.ts dist/words.tsv dist/slovnik.db",
+    "dev": "SLOVNIK_DB=dist/slovnik.db node --watch src/index.ts",
+    "test": "node --test 'src/**/*.test.ts' && node scripts/smoke-paradigms.ts",
+    "test:visual": "playwright test",
+    "register": "node src/register.ts",
+    "clean": "rm -rf index.js dist"
+  },
+  "author": "Interslavic OSS <oss@interslavic.fun>",
+  "license": "MIT",
+  "dependencies": {
+    "@interslavic/conllu": "^0.1.1",
+    "@interslavic/morphology": "^0.1.3",
+    "@interslavic/stemmer": "^0.1.1",
+    "@interslavic/translit": "^0.2.1",
+    "discord.js": "^14.27.0",
+    "dotenv": "^18.0.9"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medzuslovjansky/duhi.git",
+    "directory": "packages/discord-spirit-slovo"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@skyra/discord-components-core": "^4.0.2"
+  }
+}
