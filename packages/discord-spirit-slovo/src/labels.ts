@@ -22,8 +22,6 @@ export const UNREVIEWED = {
   shortForm: 'kratka forma',
   /** Button that posts an answer to the channel, in every client language. */
   showAll: 'Pokaži vsim',
-  /** Message context command (right-click a message, Apps). */
-  lookUp: 'Gledaj v slovniku',
 } as const;
 
 const POS: Record<string, LabelKey> = {

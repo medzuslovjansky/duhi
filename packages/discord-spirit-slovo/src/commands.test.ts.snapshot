@@ -110,16 +110,6 @@ exports[`command definitions 1`] = `
         ]
       }
     ]
-  },
-  {
-    "type": 3,
-    "name": "Gledaj v slovniku",
-    "integration_types": [
-      0
-    ],
-    "contexts": [
-      0
-    ]
   }
 ]
 `;

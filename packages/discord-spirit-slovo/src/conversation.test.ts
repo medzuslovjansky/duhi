@@ -63,17 +63,6 @@ test('typing offers suggestions', async () => {
   assert.ok(choices.every((c) => c.name === c.value && c.value.length <= 100));
 });
 
-test('Gledaj v slovniku on one Interslavic word opens its card at once', async () => {
-  const card = reply(await ask({ kind: 'message-command', text: '  pisal  ', locale: 'pl' }));
-  assert.match(card.payload.embeds[0].title!, /^pisati/);
-});
-
-test('Gledaj v slovniku on a word of another language lists the results', async () => {
-  const results = reply(await ask({ kind: 'message-command', text: 'water', locale: 'pl' }));
-  assert.ok(results.payload.embeds.length > 1);
-  assert.ok(controls(results.payload).menu);
-});
-
 test('nothing found', async () => {
   const results = reply(await ask({ kind: 'command', query: 'xqzw', locale: 'pl' }));
   assert.equal(results.payload.embeds.length, 0);
