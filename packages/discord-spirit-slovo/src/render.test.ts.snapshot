@@ -125,7 +125,7 @@ exports[`messages 1`] = `
           },
           {
             "name": "​",
-            "value": "\\\\* variant",
+            "value": "\\\\* atematična forma",
             "inline": false
           }
         ]
@@ -177,7 +177,7 @@ exports[`messages 1`] = `
           },
           {
             "name": "​",
-            "value": "\\\\* variant",
+            "value": "\\\\* atematična forma",
             "inline": false
           }
         ]
@@ -266,7 +266,7 @@ exports[`messages 1`] = `
           },
           {
             "name": "​",
-            "value": "\\\\* variant",
+            "value": "\\\\* kratka forma",
             "inline": false
           }
         ]
