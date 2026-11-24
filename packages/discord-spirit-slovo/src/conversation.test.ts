@@ -18,7 +18,7 @@ function reply(reaction: Reaction): { ephemeral: boolean; payload: Payload } {
 function controls(payload: Payload) {
   const all = payload.components.flatMap((row) => row.components);
   const menu = all.find((c) => c.type === 3) as { custom_id: string; options: { label: string; value: string }[] } | undefined;
-  const share = all.find((c) => c.type === 2) as { custom_id: string; label: string } | undefined;
+  const share = all.find((c) => c.type === 2 && String(c.custom_id).startsWith('slovo:share')) as { custom_id: string; label: string } | undefined;
   return { menu, share };
 }
 
@@ -46,6 +46,16 @@ test('look up, open a word, show it to everyone', async () => {
   assert.equal(shown.ephemeral, false);
   assert.deepEqual(shown.payload.embeds, card.payload.embeds);
   assert.equal(controls(shown.payload).share, undefined);
+});
+
+test('one word found: a button to its forms instead of the menu', async () => {
+  const results = reply(await ask({ kind: 'command', query: 'kamen', locale: 'ru' }));
+  const buttons = results.payload.components.flatMap((row) => row.components).filter((c) => c.type === 2) as { custom_id: string; label: string }[];
+  assert.equal(controls(results.payload).menu, undefined);
+  assert.deepEqual(buttons.map((b) => b.label), ['Склонение', 'Pokaži vsim']);
+  const card = reply(await ask({ kind: 'button', customId: buttons[0].custom_id, locale: 'ru' }));
+  assert.equal(card.ephemeral, true);
+  assert.match(card.payload.embeds[0].title!, /^kamenj/);
 });
 
 test('the results can be shown to everyone as they are', async () => {

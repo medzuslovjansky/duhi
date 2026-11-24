@@ -344,6 +344,36 @@
     "mk": "несовршен / совршен",
     "bg": "несвършен / свършен"
   },
+  "declensions": {
+    "isv": "Sklonjeńje",
+    "en": "Declension",
+    "ru": "Склонение",
+    "be": "Скланенне",
+    "uk": "Відмінювання",
+    "pl": "Deklinacja",
+    "cs": "Skloňování",
+    "sk": "Skloňovanie",
+    "sl": "Deklinacija",
+    "hr": "Sklonidba",
+    "sr": "Деклинација",
+    "mk": "Деклинација",
+    "bg": "Склонение"
+  },
+  "conjugation": {
+    "isv": "Spręžeńje",
+    "en": "Conjugation",
+    "ru": "Спряжение",
+    "be": "Спражэнне",
+    "uk": "Дієвідміна",
+    "pl": "Koniugacja",
+    "cs": "Časování",
+    "sk": "Časovanie",
+    "sl": "Konjugacija",
+    "hr": "Sprezanje",
+    "sr": "Конјугација",
+    "mk": "Конјугација",
+    "bg": "Спрежение"
+  },
   "singular": {
     "isv": "jednina",
     "en": "singular",

@@ -49,6 +49,10 @@ export async function handle(event: BotEvent, search: Search): Promise<Reaction>
         const found = await search.find(text, lang(shareLang));
         return publicly(resultsPayload(found, { query: text, lang: lang(shareLang), reader, shared: true }));
       }
+      if (action === 'word') {
+        const card = await search.word(rest.join(':'));
+        return card ? privately(wordPayload(card, reader)) : { kind: 'ignore' };
+      }
       if (action === 'share-word') {
         const card = await search.word(rest.join(':'));
         return card ? publicly(wordPayload(card, reader, true)) : { kind: 'ignore' };

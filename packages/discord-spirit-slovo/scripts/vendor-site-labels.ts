@@ -14,7 +14,7 @@ const KEYS = [
   'masculineAnimate',
   'verb-perfective', 'verb-imperfective', 'verb-imperfectiveOrPerfective',
   // form tables
-  'singular', 'plural', 'masculine', 'feminine', 'neuter',
+  'declensions', 'conjugation', 'singular', 'plural', 'masculine', 'feminine', 'neuter',
   'caseNom', 'caseAcc', 'caseGen', 'caseLoc', 'caseDat', 'caseIns', 'caseVoc',
   'infinitive', 'present', 'past', 'imperative',
   // messages
