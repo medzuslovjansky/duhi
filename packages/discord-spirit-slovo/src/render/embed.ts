@@ -2,6 +2,7 @@ import { label, partOfSpeech, UNREVIEWED } from '../labels.ts';
 import { LANGS, standard, type Lang } from '../lang.ts';
 import type { Lemma, Result, WordCard } from '../search.types.ts';
 import { formTables, tableText, VARIANTS, type Marks } from './forms.ts';
+import { INFLECTED } from '../paradigm.ts';
 
 /** Discord message limits (discord.com/developers/docs/resources/message). */
 export const LIMITS = {
@@ -98,12 +99,17 @@ function resultEmbed(result: Result, ctx: ResultsContext): Embed {
 
 /** Menu of the results' lemmas; picking one opens its word card. */
 function wordMenu(lemmas: Lemma[], reader?: Lang) {
-  const seen = new Set<string>();
   const options = lemmas
-    .filter((l) => !seen.has(l.key) && seen.add(l.key) && l.key.length + 'slovo:word'.length <= LIMITS.customId)
     .slice(0, LIMITS.selectOptions)
     .map((l) => ({ label: cut(`${lemmaName(l)} (${partOfSpeech(l, reader)})`, LIMITS.optionLabel), value: l.key }));
-  return options.length ? { type: 1 as const, components: [{ type: 3, custom_id: 'slovo:word', options }] } : undefined;
+  return { type: 3, custom_id: 'slovo:word', options };
+}
+
+/** One word: a button to its forms, as the dictionary site names them; none when the word does not inflect. */
+function formsButton(lemma: Lemma, reader?: Lang) {
+  if (!INFLECTED.has(lemma.upos) || /\s/.test(lemmaName(lemma))) return undefined;
+  const title = label(lemma.upos === 'VERB' || lemma.upos === 'AUX' ? 'conjugation' : 'declensions', reader);
+  return { type: 2, style: 1, custom_id: `slovo:word:${lemma.key}`, label: cut(title, LIMITS.buttonLabel) };
 }
 
 function shareButton(customId: string) {
@@ -125,10 +131,16 @@ export function resultsPayload(results: Result[], ctx: ResultsContext): Payload 
   const embeds = shown.map((r) => resultEmbed(r, ctx));
 
   const components: Payload['components'] = [];
-  const menu = wordMenu(shown.flatMap((r) => r.lemmas), ctx.reader);
-  if (menu) components.push(menu);
+  const seen = new Set<string>();
+  const lemmas = shown
+    .flatMap((r) => r.lemmas)
+    .filter((l) => !seen.has(l.key) && seen.add(l.key) && `slovo:word:${l.key}`.length <= LIMITS.customId);
+  // several words: a menu of them; one word: a button to its forms
+  const forms = lemmas.length === 1 ? formsButton(lemmas[0], ctx.reader) : undefined;
+  if (lemmas.length > 1) components.push({ type: 1, components: [wordMenu(lemmas, ctx.reader)] });
   const share = ctx.shared ? undefined : shareButton(`slovo:share:${ctx.lang ?? ''}:${ctx.query}`);
-  if (share) components.push({ type: 1, components: [share] });
+  const buttons = [forms, share].filter((b) => b !== undefined);
+  if (buttons.length) components.push({ type: 1, components: buttons });
 
   return { embeds, components, allowed_mentions: { parse: [] } };
 }
