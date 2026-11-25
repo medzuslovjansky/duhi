@@ -29,6 +29,9 @@ function eventOf(interaction: DiscordJs.Interaction): BotEvent | undefined {
   return undefined;
 }
 
+/** An error as a code (DiscordAPIError 10062 = answered too late) or its class name; never its message. */
+const codeOf = (error: unknown) => String((error as { code?: unknown })?.code ?? (error as Error)?.name ?? 'unknown');
+
 client.on('interactionCreate', async (interaction) => {
   const event = eventOf(interaction);
   if (!event) return;
@@ -39,7 +42,8 @@ client.on('interactionCreate', async (interaction) => {
       await interaction.reply({ ...reaction.payload, flags: reaction.ephemeral ? MessageFlags.Ephemeral : undefined });
     }
   } catch (error) {
-    console.error(`interaction ${interaction.id} (${event.kind}) failed:`, error);
+    // Only the kind and a code: a DiscordAPIError carries our request body, which quotes what the person typed.
+    console.error(`${event.kind} failed: ${codeOf(error)}`);
   }
 });
 
@@ -53,7 +57,7 @@ client.once('clientReady', async (ready) => {
     const updated = withRevision(description ?? '', sha);
     if (updated !== description) await ready.application.edit({ description: updated });
   } catch (error) {
-    console.error('Error publishing revision:', error);
+    console.error(`publishing revision failed: ${codeOf(error)}`);
   }
 });
 
