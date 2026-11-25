@@ -2,7 +2,7 @@
 
 Last updated: 2026-11-25.
 
-Duh Slova is a Discord bot that looks up words in the Interslavic dictionary. It is run on the official Interslavic Discord server (github.com/medzuslovjansky).
+Duh Slova is a Discord bot that looks up words in the Interslavic dictionary. It is run on the official Interslavic Discord server. Its source code is public: https://github.com/medzuslovjansky/duhi.
 
 **What the bot receives.** When you use `/gledaj`, press one of its buttons or pick from its menu, Discord sends the bot that interaction: your user ID, the server and channel IDs, your Discord language and the text you typed. The bot does not read messages in channels.
 
