@@ -20,6 +20,8 @@ services:
       DISCORD_TOKEN: ${SLOVO_DISCORD_TOKEN:?}
       DISCORD_APPLICATION_ID: ${SLOVO_DISCORD_APPLICATION_ID:?}
     restart: unless-stopped
+    logging:
+      options: { max-size: 1m, max-file: '3' }
 
 volumes:
   latin:

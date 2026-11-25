@@ -8,7 +8,7 @@ Duh Slova is a Discord bot that looks up words in the Interslavic dictionary. It
 
 **What the bot keeps.** Nothing. It answers and forgets. It has no database of users, servers or queries.
 
-**Logs.** When an answer fails, the bot writes the interaction ID and the error to its server log. The log is deleted when the bot is next deployed.
+**Logs.** When an answer fails, the bot writes the kind of interaction (command, button, menu) and an error code to its server log. The log holds no user IDs and nothing you typed; the code that writes it is in this repository. The log is capped at a few megabytes, older lines are dropped.
 
 **Public answers.** «Pokaži vsim» posts the answer to the channel; Discord shows who asked for it. Server moderators can delete such a message.
 
